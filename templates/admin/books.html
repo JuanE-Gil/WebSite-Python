@@ -1,0 +1,130 @@
+{% include 'admin/header.html' %}
+<br />
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="card">
+				<div class="card-header">Book data</div>
+				<div class="card-body">
+					<form
+						action="/admin/books/save"
+						method="post"
+						enctype="multipart/form-data">
+						<div class="mb-3">
+							<label
+								for="txtName"
+								class="form-label"
+								>Name:</label
+							>
+							<input
+								type="text"
+								class="form-control"
+								name="txtName"
+								id="txtName"
+								aria-describedby="helpId"
+								placeholder="Type the name of the workbook" />
+						</div>
+
+						<div class="mb-3">
+							<label
+								for="txtImage"
+								class="form-label"
+								>Image:</label
+							>
+							<input
+								type="file"
+								class="form-control"
+								name="txtImage"
+								id="txtImage"
+								aria-describedby="helpId"
+								placeholder="Select the image" />
+						</div>
+
+						<div class="mb-3">
+							<label
+								for="txtURL"
+								class="form-label"
+								>Download URL:</label
+							>
+							<input
+								type="text"
+								class="form-control"
+								name="txtURL"
+								id="txtURL"
+								aria-describedby="helpId"
+								placeholder="type the download URL" />
+						</div>
+
+						<button
+							type="submit"
+							class="btn btn-primary">
+							add
+						</button>
+					</form>
+				</div>
+				<div class="card-footer text-muted"></div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Image</th>
+							<th>URL</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for book in books %}
+
+						<tr>
+							<td>{{ book[0] }}</td>
+							<td>{{ book[1] }}</td>
+							<td>
+								<img
+									width="100"
+									src="/img/{{ book[2] }}"
+									class="img-fluid rounded-top"
+									alt="" />
+							</td>
+							<td>
+								<a
+									name=""
+									id=""
+									class="btn btn-success"
+									href="{{ book[3] }}"
+									role="button"
+									>Download ...</a
+								>
+							</td>
+							<td>
+								<form
+									action="/admin/books/delete"
+									method="post">
+									<input
+										value="{{ book[0] }}"
+										type="hidden"
+										name="txtID"
+										id="txtID" />
+
+									<button
+										type="submit"
+										class="btn btn-danger">
+										Delete
+									</button>
+								</form>
+							</td>
+						</tr>
+
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include 'admin/footer.html' %}
